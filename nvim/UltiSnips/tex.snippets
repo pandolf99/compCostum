@@ -1,0 +1,92 @@
+global !p
+def create_matrix_placeholders(snip):
+	# Create anonymous snippet body
+	anon_snippet_body = ""
+
+	# Get start and end line number of expanded snippet
+	start = snip.snippet_start[0]
+	end = snip.snippet_end[0]
+
+	# Append current line into anonymous snippet
+	for i in range(start, end + 1):
+		anon_snippet_body += snip.buffer[i]
+		anon_snippet_body += "" if i == end else "\n"
+
+	# Delete expanded snippet line till second to last line
+	for i in range(start, end):
+		del snip.buffer[start]
+
+	# Empty last expanded snippet line while preserving the line
+	snip.buffer[start] = ''
+
+	# Expand anonymous snippet
+	snip.expand_anon(anon_snippet_body)
+
+def create_matrix(cols, rows, sep, start, end):
+	res = ""
+	placeholder = 1
+	for _ in range(0, int(rows)):
+		res += start + f"${placeholder} "
+		placeholder += 1
+		for _ in range(0, int(cols) - 1):
+			res += sep + f" ${placeholder} "
+			placeholder += 1
+		res += end
+	return res[:-1]
+endglobal
+
+snippet new "begin a basic document" 
+\documentclass{article}
+\begin{document}
+	$0
+\end{document}
+endsnippet
+
+snippet beg "\begin{} ... \end{} block" b
+\begin{$1}
+	${0:${VISUAL}}
+\end{$1}
+endsnippet
+
+snippet thm "\begin{} ... \end{} block" b
+\begin{theorem}[$1]
+	${0:${VISUAL}}
+\end{theorem}
+endsnippet
+
+snippet eqn "\begin{} ... \end{} block" b
+\[
+	${0:${VISUAL}}
+\]
+endsnippet
+
+snippet ali "align block"
+\begin{align*}
+	${0:${VISUAL}}
+\end{align*}
+endsnippet
+
+#fractions
+snippet "(^|[^a-zA-Z])ff" "\frac{}{}" rA
+`!p snip.rv = match.group(1)`\frac{$1}{$2}$0
+endsnippet
+
+#math mode
+snippet "(^|[^a-zA-Z])mm" "Inline LaTeX math" rA
+`!p snip.rv = match.group(1)`\$ ${1:${VISUAL:}} \$$0
+endsnippet
+
+#arbitrary matrices
+post_jump "create_matrix_placeholders(snip)"
+snippet 'mat(\d)(\d)' "LaTeX array" brA
+\matc{
+`!p
+snip.rv = create_matrix(match.group(1), match.group(2), "&", "\t", "\\\\\\\\\n")
+`
+}$0
+endsnippet
+
+#set
+snippet set "set notation" A
+\\{ $1 \\}$0
+endsnippet
