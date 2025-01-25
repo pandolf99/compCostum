@@ -33,7 +33,12 @@ def create_matrix(cols, rows, sep, start, end):
 			placeholder += 1
 		res += end
 	return res[:-1]
+
+def math():
+  return vim.eval('vimtex#syntax#in_mathzone()') == '1'
 endglobal
+
+
 
 snippet new "begin a basic document" 
 \documentclass{article}
@@ -87,6 +92,7 @@ snip.rv = create_matrix(match.group(1), match.group(2), "&", "\t", "\\\\\\\\\n")
 endsnippet
 
 #set
+context "math()"
 snippet set "set notation" A
 \\{ $1 \\}$0
 endsnippet
