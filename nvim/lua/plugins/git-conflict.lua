@@ -1,6 +1,5 @@
 return {
-	'akinsho/git-conflict.nvim',
+	"akinsho/git-conflict.nvim",
 	version = "*",
-	config = true
+	config = true,
 }
-
