@@ -1,28 +1,46 @@
-
 return {
     'nvim-telescope/telescope.nvim', tag = '0.1.8',
-	dependencies = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons' },
-	keys = {
+    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons', "nvim-telescope/telescope-ui-select.nvim" },
+    opts = {
+        extensions = {
+            ["ui-select"] = {
+              require("telescope.themes").get_dropdown {
+                -- even more opts
+              }
+            }
+        }
+    },
+    config = function(_, opts)
+        local telescope = require("telescope")
+        telescope.setup(opts)
+        telescope.load_extension("ui-select")
+    end,
+    keys = {
         {
-            "<Leader>ff",
-            "<cmd>Telescope find_files<CR>",
-            desc = "Find files",
+            "<leader>ff",
+            "<cmd>Telescope find_files<cr>",
+            desc = "find files",
         },
         {
-            "<Leader>fg",
-            "<cmd>Telescope live_grep<CR>",
+            "<leader>fg",
+            "<cmd>Telescope live_grep<cr>",
             desc = "ripgrep through files",
         },
         {
-            "<Leader>fs",
-            "<cmd>Telescope grep_string<CR>",
-            desc = "ripgrep through files",
+            "<leader>fs",
+            "<cmd>Telescope grep_string<cr>",
+            desc = "Find instances of string",
         },
         {
-            "<Leader>fb",
-            "<cmd>Telescope buffers<CR>",
+            "<leader>fb",
+            "<cmd>Telescope buffers<cr>",
             desc = "find buffer",
         },
+        {
+            "<leader>fr",
+            "<cmd>Telescope lsp_references<cr>",
+            desc = "find references",
+        },
       },
-	cmd = "Telescope"
-	}
+    cmd = "Telescope"
+}

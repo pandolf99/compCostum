@@ -22,9 +22,25 @@ return {
 				python = {
 					--sort imports
 					require("formatter.filetypes.python").isort,
-					require("formatter.filetypes.python").black
-				}
-			}
+					require("formatter.filetypes.python").black,
+					--override defaults
+					function() 
+						return {
+							command = "autoflake",
+							args = {
+								"--remove-all-unused-imports",
+								"--remove-unused-variables",
+								"--in-place", 
+								"--ignore-pass-after-docstring",
+								vim.api.nvim_buf_get_name(0),
+							},
+						}
+					end,
+				},
+				javascript = {
+					require("formatter.filetypes.javascript").prettier,
+				},
+			},
 		})
 	end,
 }

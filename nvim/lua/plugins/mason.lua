@@ -11,17 +11,26 @@ return {
 	{
 		"williamboman/mason-lspconfig.nvim",
 		opts = {
-			ensure_installed = {"pyright"}
+			ensure_installed = {"pyright", "gopls", "denols"}
 		},
 	},
 	{ 
 		"neovim/nvim-lspconfig",
 		config = function () 
-		  vim.diagnostic.config({
+			 vim.diagnostic.config({
 				virtual_text = true,
 			})
-		  local configs = require("lspconfig")
-		  configs.pyright.setup({})
+			vim.lsp.config("gopls", {
+				settings = {
+					gopls = {
+					  buildFlags = {
+						"-tags=unit,integration,payloads",
+					  },
+					},
+				},
+			})
+		-- add specific language server config here 
+		-- defaults are usually okay.
 		end,
 	},
 }
