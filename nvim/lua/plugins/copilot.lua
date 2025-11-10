@@ -1,15 +1,24 @@
 return {
-	"CopilotC-Nvim/CopilotChat.nvim",
-	dependencies = {
-		{ "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
-		{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
-	},
-	build = "make tiktoken", -- Only on MacOS or Linux
+	"zbirenbaum/copilot.lua",
+	event = "InsertEnter",
 	opts = {
-		-- See Configuration section for options
+		-- The panel is useless.
+		panel = { enabled = false },
+		suggestion = {
+			auto_trigger = true,
+			hide_during_completion = false,
+			keymap = {
+				accept = "<C-a>",
+				accept_word = "<M-w>",
+				accept_line = "<M-l>",
+				next = "<M-]>",
+				prev = "<M-[>",
+				dismiss = "<C-e>",
+			},
+		},
+		filetypes = {
+			markdown = true,
+			yaml = true,
+		},
 	},
-	keys = {
-		vim.keymap.set("n", "<leader>cc", "<Cmd>CopilotChatToggle<CR>"),
-	},
-	cmd = { "CopilotChatOpen", "CopilotChatToggle" },
 }

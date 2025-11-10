@@ -1,20 +1,25 @@
 return {
 	"nvim-telescope/telescope.nvim",
 	tag = "0.1.8",
-	dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons", "nvim-telescope/telescope-ui-select.nvim" },
+	dependencies = {
+		"nvim-lua/plenary.nvim",
+		"nvim-tree/nvim-web-devicons",
+		"nvim-telescope/telescope-ui-select.nvim",
+		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+	},
 	opts = {
 		extensions = {
-			["ui-select"] = {
-				require("telescope.themes").get_dropdown({
-					-- even more opts
-				}),
-			},
+			["ui-select"] = {},
+			["fzf"] = {},
 		},
 	},
 	config = function(_, opts)
 		local telescope = require("telescope")
 		telescope.setup(opts)
+		-- Need to call extensions after calling setup
+		-- opts should be set in the above table
 		telescope.load_extension("ui-select")
+		telescope.load_extension("fzf")
 	end,
 	keys = {
 		{
