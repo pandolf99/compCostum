@@ -20,5 +20,6 @@ return {
 		})
 		vim.lsp.enable("gopls")
 		vim.lsp.enable("pyright")
+		vim.lsp.enable("lua_ls")
 	end,
 }

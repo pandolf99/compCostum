@@ -1,4 +1,5 @@
 -- Format on save using conform.nvim
+-- Make sure formatters are installed and available in the path
 return {
 	"stevearc/conform.nvim",
 	event = { "BufWritePre" },
