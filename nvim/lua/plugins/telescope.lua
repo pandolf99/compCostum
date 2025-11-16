@@ -35,7 +35,7 @@ return {
 		{
 			"<leader>fs",
 			"<cmd>Telescope grep_string<cr>",
-			desc = "Find instances of string",
+			desc = "find instances of string",
 		},
 		{
 			"<leader>fb",
@@ -46,6 +46,11 @@ return {
 			"<leader>fr",
 			"<cmd>Telescope lsp_references<cr>",
 			desc = "find references",
+		},
+		{
+			"<leader>fk",
+			"<cmd>Telescope keymaps<cr>",
+			desc = "find keymaps",
 		},
 	},
 	cmd = "Telescope",
