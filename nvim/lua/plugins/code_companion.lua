@@ -2,6 +2,7 @@ return {
 	{
 		"olimorris/codecompanion.nvim",
 		cmd = "CodeCompanion",
+		-- dev = true,
 		dependencies = { "nvim-lua/plenary.nvim" },
 		keys = {
 			{ "<leader>cc", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle CodeCompanion chat" },
