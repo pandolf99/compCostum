@@ -8,6 +8,7 @@ return {
 	config = function()
 		vim.diagnostic.config({
 			virtual_text = true,
+			signs = false,
 		})
 		vim.lsp.config("gopls", {
 			settings = {
