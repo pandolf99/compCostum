@@ -17,10 +17,10 @@ return {
 	opts = {
 		on_attach = function(bufnr)
 			local gitsigns = require("gitsigns")
-			vim.keymap.set("n", "cs", function()
+			vim.keymap.set("n", "gs", function()
 				if_in_diff_mode(gitsigns.stage_hunk, "cs")
 			end, { buffer = bufnr, desc = "Stage Hunk in diff mode" })
-			vim.keymap.set("n", "cr", function()
+			vim.keymap.set("n", "gr", function()
 				if_in_diff_mode(gitsigns.reset_hunk, "cr")
 			end, { buffer = bufnr, desc = "Reset Hunk in diff mode" })
 			vim.keymap.set("n", "]c", gitsigns.next_hunk, { buffer = bufnr, desc = "Next Hunk" })

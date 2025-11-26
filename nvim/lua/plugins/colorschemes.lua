@@ -16,6 +16,12 @@ local colorTable = {
 	{
 		"rebelot/kanagawa.nvim",
 		name = "kanagawa",
+		opts = {
+			background = {
+				dark = "wave",
+				light = "lotus",
+			},
+		},
 		lazy = true,
 		default = true,
 	},
@@ -26,6 +32,7 @@ for _, color in ipairs(colorTable) do
 		color.lazy = false
 		color.priority = 1000
 		color.config = function()
+			require(color.name).setup(color.opts or {})
 			vim.cmd(string.format("colorscheme %s", color.name))
 		end
 	end
